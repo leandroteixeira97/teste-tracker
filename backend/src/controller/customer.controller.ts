@@ -1,5 +1,6 @@
 import { BadRequestException, Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { Customer } from 'generated/prisma';
+import { RoleProtected } from 'src/decorator/roleprotected';
 import { CreateCustomerDTO } from 'src/model/dto/createCustomer.dto';
 import { CustomerDTO } from 'src/model/dto/customer.dto';
 import { CustomerService } from 'src/service/customer.service';
@@ -22,6 +23,7 @@ export class CustomerController {
     }
 
     @Post()
+    @RoleProtected()
     async createCustomer(@Body() postData: CreateCustomerDTO, @Req() request: any): Promise<CustomerDTO> {
         const userId: string | undefined = (request as Request)?.userId;
 
