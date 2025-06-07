@@ -5,19 +5,18 @@ import { Customer } from 'generated/prisma';
 
 @Injectable()
 export class CustomerService {
-  constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) {}
 
-  getAllCustomers() {
-    return 123;
-  }
+    async getAllCustomers(): Promise<Customer[]> {
+        return await this.prisma.customer.findMany();
+    }
 
-  async createCustomer(
-    createCustomerDTO: CreateCustomerDTO,
-    userId: string,
-  ): Promise<Customer> {
-    return await this.prisma.customer.create({data: {
-        ...createCustomerDTO,
-        createdById: userId
-    }})
-  }
+    async createCustomer(createCustomerDTO: CreateCustomerDTO, userId: string): Promise<Customer> {
+        return await this.prisma.customer.create({
+            data: {
+                ...createCustomerDTO,
+                createdById: userId,
+            },
+        });
+    }
 }
