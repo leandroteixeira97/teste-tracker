@@ -6,7 +6,7 @@ import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorator/public';
 import { IS_ROLE_PROTECTED } from '../decorator/roleprotected';
 import { RoleService } from 'src/service/role.service';
-import { Payload } from 'src/service/auth.service';
+import { UserInformation } from 'src/service/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -30,14 +30,14 @@ export class AuthGuard implements CanActivate {
             throw new UnauthorizedException();
         }
 
-        let payload: Payload;
+        let userInformation: UserInformation;
 
         try {
-            payload = await this.jwtService.verifyAsync(token, {
+            userInformation = await this.jwtService.verifyAsync(token, {
                 secret: jwtConstants.secret,
             });
 
-            request['email'] = payload;
+            request['user'] = userInformation;
         } catch {
             throw new UnauthorizedException();
         }
@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
         const isRoleProtected = this.reflector.getAllAndOverride<boolean>(IS_ROLE_PROTECTED, [context.getHandler(), context.getClass()]);
 
         if (isRoleProtected) {
-            return this.handleRoleProtection(payload);
+            return this.handleRoleProtection(userInformation);
         }
 
         return true;
@@ -56,7 +56,7 @@ export class AuthGuard implements CanActivate {
         return type === 'Bearer' ? token : undefined;
     }
 
-    private handleRoleProtection(payload: Payload): boolean {
-        return this.roleService.isAdminRole(payload['role']);
+    private handleRoleProtection(userInformation: UserInformation): boolean {
+        return this.roleService.isAdminRole(userInformation['role']);
     }
 }

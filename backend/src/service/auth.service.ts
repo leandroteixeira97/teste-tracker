@@ -23,15 +23,15 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
-        const payload: Payload = { userId: user.id, email: user.email, role: user.role };
+        const userInformation: UserInformation = { userId: user.id, email: user.email, role: user.role };
 
         return {
-            access_token: await this.jwtService.signAsync(payload),
+            access_token: await this.jwtService.signAsync(userInformation),
         };
     }
 }
 
-export interface Payload {
+export interface UserInformation {
     userId: string;
     email: string;
     role: Role;
