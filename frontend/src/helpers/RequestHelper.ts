@@ -1,8 +1,16 @@
+import { AuthenticationService } from "@/services/AuthenticationService";
+
 export class RequestHelper {
     private static serverURL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL;
 
     public static async get(path: string): Promise<JSON> {
-        const response: Response = await fetch(RequestHelper.sanitizePath(path));
+        const response: Response = await fetch(RequestHelper.sanitizePath(path), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + AuthenticationService.getAccessToken()
+            }
+        });
 
         if (response.status >= 200 && response.status < 400) {
             return await response.json();
@@ -16,6 +24,7 @@ export class RequestHelper {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + AuthenticationService.getAccessToken()
             },
             body: JSON.stringify(body),
         });

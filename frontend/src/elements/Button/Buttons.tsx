@@ -9,7 +9,7 @@ interface ButtonProps {
     onClick?: () => void;
     type: 'submit' | 'reset' | 'button'
     text: string;
-    tooltip: string;
+    tooltip?: string;
 }
 
 export default Button;

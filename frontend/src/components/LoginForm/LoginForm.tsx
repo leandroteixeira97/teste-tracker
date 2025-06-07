@@ -1,9 +1,6 @@
 import Button from '@/elements/Button/Buttons';
 import Input from '@/elements/Input/input';
-import { LocalStorageHelper } from '@/helpers/LocalStorageHelper';
-import { RequestHelper } from '@/helpers/RequestHelper';
-import { AuthReponse } from '@/model/AuthResponse';
-import { LoginDTO } from '@/model/dto/LoginDTO';
+import { AuthenticationService } from '@/services/AuthenticationService';
 import { useRouter } from 'next/router';
 import { FormEvent, JSX, useState } from 'react';
 
@@ -17,15 +14,11 @@ const LoginForm = (): JSX.Element => {
         e.preventDefault();
 
         if (email && password) {
-            const loginDTO: LoginDTO = { email: email, passwordHash: password };
-
             try {
-                const response: AuthReponse = await RequestHelper.post('/auth/login', loginDTO) as unknown as AuthReponse;
-                LocalStorageHelper.setItem('access_token', response.access_token);
+                await AuthenticationService.performLogin(email, password);
                 router.push('/home');
             } catch {
                 window.alert('As credenciais de acesso estão incorretas!');
-                LocalStorageHelper.removeItem('access_token');
             }
         }
     };
