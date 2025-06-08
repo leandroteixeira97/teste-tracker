@@ -11,6 +11,10 @@ export class AttendanceService {
         return await this.prisma.attendance.findMany({ where: { userId: userId } });
     }
 
+    public async getAttendancesByCustomerId(customerId: string): Promise<Attendance[]> {
+        return await this.prisma.attendance.findMany({ where: { customerId: customerId } });
+    }
+
     public async createAttendance(createAttendanceDTO: CreateAttendanceDTO, userId: string): Promise<Attendance> {
         return await this.prisma.attendance.create({
             data: {

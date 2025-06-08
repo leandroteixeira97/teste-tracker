@@ -19,4 +19,8 @@ export class CustomerService {
             },
         });
     }
+
+    async getCustomerById(customerId: string): Promise<Customer | null> {
+        return await this.prisma.customer.findUnique({ where: { id: customerId } });
+    }
 }
