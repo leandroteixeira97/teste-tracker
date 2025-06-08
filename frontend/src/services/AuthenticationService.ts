@@ -13,7 +13,12 @@ export class AuthenticationService {
     public static async performLogin(email: string, password: string): Promise<void> {
         const loginDTO: LoginDTO = { email: email, passwordHash: password };
         try {
-            const response: AuthReponse = (await RequestHelper.post('/auth/login', loginDTO)) as unknown as AuthReponse;
+            const response: AuthReponse | undefined = await RequestHelper.post('/auth/login', loginDTO);
+
+            if (!response) {
+                throw new Error('The auth response is undefined');
+            }
+
             LocalStorageHelper.setItem(AuthenticationService.ACCESS_TOKEN_KEY_NAME, response.access_token);
         } catch (e) {
             LocalStorageHelper.removeItem(AuthenticationService.ACCESS_TOKEN_KEY_NAME);
@@ -23,14 +28,5 @@ export class AuthenticationService {
 
     public static performLogout(): void {
         LocalStorageHelper.removeItem(AuthenticationService.ACCESS_TOKEN_KEY_NAME);
-    } 
-
-    public static async isTokenValid(): Promise<boolean> {
-        try {
-            await RequestHelper.get('/auth/isTokenValid');
-            return true;
-        } catch {
-            return false;
-        }
     }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { LoginDTO } from 'src/model/dto/login.dto';
 import { Public } from '../decorator/public';
 import { AuthService, LoginResponse } from '../service/auth.service';
@@ -16,10 +16,5 @@ export class AuthController {
         }
 
         return await this.authService.login(loginDTO.email, loginDTO.passwordHash);
-    }
-
-    @Get('/isTokenValid')
-    isTokenValid(): boolean {
-        return true;
     }
 }
