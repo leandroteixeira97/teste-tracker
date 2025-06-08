@@ -19,6 +19,8 @@ const buildInputElement = (props: InputProps): JSX.Element => {
                 id={props.id}
                 placeholder={props.placeholder}
                 onChange={(e: ChangeEvent) => props.onValueChange((e.target as HTMLInputElement).value)}
+                disabled={props.disabled}
+                value={props.value}
             />
         );
     }
@@ -29,6 +31,8 @@ const buildInputElement = (props: InputProps): JSX.Element => {
             type={props.type}
             placeholder={props.placeholder}
             onChange={(e: ChangeEvent) => props.onValueChange((e.target as HTMLInputElement).value)}
+            disabled={props.disabled}
+            value={props.value}
         />
     );
 };
@@ -47,6 +51,8 @@ interface InputProps {
     placeholder: string;
     label: string;
     onValueChange: (value: string) => void;
+    disabled?: boolean;
+    value?: string;
 }
 
 export default Input;

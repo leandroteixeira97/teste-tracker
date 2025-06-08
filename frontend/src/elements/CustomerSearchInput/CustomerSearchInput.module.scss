@@ -1,0 +1,21 @@
+.customerSearchInputContainer {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    max-width: 30vw;
+    position: relative;
+}
+
+.customerList {
+    width: 100%;
+    background-color: rgb(197, 197, 197);
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    overflow-y: auto;
+    max-height: 300px;
+    border-radius: 0 0 4px 4px;
+}

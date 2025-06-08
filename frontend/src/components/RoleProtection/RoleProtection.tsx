@@ -13,7 +13,7 @@ const RoleProtection = (props: RoleProtectionProps) => {
         };
 
         loadUserInformation();
-    }, [user]);
+    }, []);
 
     if (user && props.allowableRoles.includes(user.role)) {
         return <>{props.children}</>;
