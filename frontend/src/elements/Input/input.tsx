@@ -13,6 +13,16 @@ const Input = (props: InputProps): JSX.Element => {
 };
 
 const buildInputElement = (props: InputProps): JSX.Element => {
+    if (props.type === 'textarea') {
+        return (
+            <textarea
+                id={props.id}
+                placeholder={props.placeholder}
+                onChange={(e: ChangeEvent) => props.onValueChange((e.target as HTMLInputElement).value)}
+            />
+        );
+    }
+
     return (
         <input
             id={props.id}
@@ -33,7 +43,7 @@ const buildLabelElement = (props: InputProps): JSX.Element => {
 
 interface InputProps {
     id: string;
-    type: HTMLInputTypeAttribute;
+    type: HTMLInputTypeAttribute | 'textarea';
     placeholder: string;
     label: string;
     onValueChange: (value: string) => void;
