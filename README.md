@@ -1,3 +1,6 @@
+<p align="center">
+  <a href="https://www.grupotracker.com.br" target="blank"><img src="./frontend/public/tracker-logo.png" width="300" alt="Tracker" /></a>
+</p>
 
 # CRM Simplificado - Teste Técnico Fullstack
 
@@ -9,22 +12,22 @@ Este projeto é um sistema CRM simples com autenticação, controle de usuários
 
 O projeto está dividido em duas pastas principais:
 
-- `frontend/` – Aplicação web construída com **Next.js** e **React**.
-- `backend/` – API REST construída com **NestJS** e **Prisma ORM**.
+-   `frontend/` – Aplicação web construída com **Next.js** e **React**.
+-   `backend/` – API REST construída com **NestJS** e **Prisma ORM**.
 
 ---
 
 ## 🔐 Autenticação e Autorização
 
-- Autenticação baseada em JWT.
-- Rotas protegidas com `AuthGuard`, exceto a rota de login e a de cadastro de usuários no sistema.
-- A Criação de clientes é protegida por roles: apenas usuários com `SELLER` ou `ADMINISTRATOR` podem acessar.
-- Arquitetura de autenticação construída com:
-  - `AuthModule`
-  - `AuthController`
-  - `AuthService`
-  - `RoleService`
-- Constante `JwtSecret` configurada em `src/auth`.
+-   Autenticação baseada em JWT.
+-   Rotas protegidas com `AuthGuard`, exceto a rota de login e a de cadastro de usuários no sistema.
+-   A Criação de clientes é protegida por roles: apenas usuários com `SELLER` ou `ADMINISTRATOR` podem acessar.
+-   Arquitetura de autenticação construída com:
+    -   `AuthModule`
+    -   `AuthController`
+    -   `AuthService`
+    -   `RoleService`
+-   Constante `JwtSecret` configurada em `src/auth`.
 
 ---
 
@@ -46,11 +49,11 @@ enum Role {
 
 O banco de dados já vem com três usuários pré-cadastrados, um para cada role:
 
-| Nome       | Email                        | Senha   | Role           |
-|------------|------------------------------|---------|----------------|
-| Admin      | admin@admin.com              | 123456  | ADMINISTRATOR  |
-| Atendente  | atentende@atendente.com      | 123456  | ATTENDANT      |
-| Vendedor   | vendedor@vendedor.com        | 123456  | SELLER         |
+| Nome      | Email                    | Senha  | Role          |
+| --------- | ------------------------ | ------ | ------------- |
+| Admin     | admin@crmtracker.com     | 123456 | ADMINISTRATOR |
+| Atendente | atentende@crmtracker.com | 123456 | ATTENDANT     |
+| Vendedor  | vendedor@crmtracker.com  | 123456 | SELLER        |
 
 ---
 
@@ -58,23 +61,23 @@ O banco de dados já vem com três usuários pré-cadastrados, um para cada role
 
 Dentro de `backend/src/`, a estrutura segue este padrão:
 
-- `/controller` – Controllers REST.
-- `/service` – Lógica de negócios.
-- `/module` – Módulos do NestJS.
-- `/model`
-  - `/dto` – Objetos de transferência de dados (Data Transfer Objects).
+-   `/controller` – Controllers REST.
+-   `/service` – Lógica de negócios.
+-   `/module` – Módulos do NestJS.
+-   `/model`
+    -   `/dto` – Objetos de transferência de dados (Data Transfer Objects).
 
 ---
 
 ## 📋 Funcionalidades
 
-- **Autenticação** com JWT
-- **Criação e login de usuários**
-- **Controle de permissões por role**
-- **Cadastro de clientes (customers)** – restrito a SELLER e ADMINISTRATOR
-- **Registro de atendimentos** – permitido para todos os usuários
-- **Histórico de atendimentos vinculado ao cliente**
-- **Formulário de cadastro de usuários acessível pela tela de login**
+-   **Autenticação** com JWT
+-   **Criação e login de usuários**
+-   **Controle de permissões por role**
+-   **Cadastro de clientes (customers)** – restrito a SELLER e ADMINISTRATOR
+-   **Registro de atendimentos** – permitido para todos os usuários
+-   **Histórico de atendimentos vinculado ao cliente**
+-   **Formulário de cadastro de usuários acessível pela tela de login**
 
 ---
 
@@ -82,8 +85,8 @@ Dentro de `backend/src/`, a estrutura segue este padrão:
 
 ### Pré-requisitos
 
-- Node.js 18+
-- Npm
+-   Node.js 18+
+-   Npm
 
 ### 1. Clonar o repositório
 
@@ -117,11 +120,15 @@ O repositório já virá com as variáveis configuradas para rodar o projeto loc
 ### 4. Rodar as migrações e seed
 
 ```bash
+# a partir da raiz do repositório
+cd backend
+npx prisma generate
 npx prisma migrate dev --name init
 npx prisma db seed
 ```
 
 ### 5. Iniciar o servidor
+
 Abra dois bashs, onde um será responsável por rodar o `backend` e o outro, o `frontend`
 
 ```bash
@@ -141,13 +148,15 @@ npm run dev
 ## 📚 Tecnologias Utilizadas
 
 ### Backend
-- [NestJS](https://nestjs.com/)
-- [Prisma ORM](https://www.prisma.io/)
-- [JWT](https://jwt.io/)
+
+-   [NestJS](https://nestjs.com/)
+-   [Prisma ORM](https://www.prisma.io/)
+-   [JWT](https://jwt.io/)
 
 ### Frontend
-- [Next.js](https://nextjs.org/)
-- [React](https://reactjs.org/)
+
+-   [Next.js](https://nextjs.org/)
+-   [React](https://reactjs.org/)
 
 ---
 

@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Req } from '@nestjs/common';
-import { Attendance, Customer } from 'generated/prisma';
+import { Attendance, Customer } from '@prisma/client';
 import { RoleProtected } from 'src/decorator/roleprotected';
 import { CreateCustomerDTO } from 'src/model/dto/createCustomer.dto';
 import { CustomerDTO } from 'src/model/dto/customer.dto';

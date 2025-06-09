@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Attendance } from 'generated/prisma';
+import { Attendance } from '@prisma/client';
 import { AttendanceDTO } from 'src/model/dto/attendance.dto';
 import { CreateAttendanceDTO } from 'src/model/dto/createAttendance.dto';
 import { AttendanceService } from 'src/service/attendance.service';
