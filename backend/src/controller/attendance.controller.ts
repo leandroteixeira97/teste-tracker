@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { Attendance } from '@prisma/client';
 import { AttendanceDTO } from 'src/model/dto/attendance.dto';
 import { CreateAttendanceDTO } from 'src/model/dto/createAttendance.dto';
 import { AttendanceService } from 'src/service/attendance.service';
+import { Request } from './customer.controller';
 
 @Controller('/attendances')
 export class AttendanceController {
@@ -24,8 +25,9 @@ export class AttendanceController {
     }
 
     @Post()
-    async createAttendance(@Body() postData: CreateAttendanceDTO): Promise<AttendanceDTO> {
-        const userId: string = '42d8829a-e036-4ae4-b319-ce7e3559afc2';
+    async createAttendance(@Body() postData: CreateAttendanceDTO, @Req() request: any): Promise<AttendanceDTO> {
+        const userId: string | undefined = (request as Request)?.user.userId;
+
         const attendance: Attendance = await this.attendanceService.createAttendance(postData, userId);
 
         return {

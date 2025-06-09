@@ -8,6 +8,25 @@ Este projeto é um sistema CRM simples com autenticação, controle de usuários
 
 ---
 
+## 📚 Tecnologias Utilizadas
+
+### Backend
+
+-   [NestJS](https://nestjs.com/)
+-   [Prisma ORM](https://www.prisma.io/)
+-   [JWT](https://jwt.io/)
+
+### Frontend
+
+-   [Next.js](https://nextjs.org/)
+-   [React](https://reactjs.org/)
+
+### Banco de dados
+
+- SQLite (Banco relacional com foco em entrega de MVP)
+
+---
+
 ## 🧱 Estrutura do Projeto
 
 O projeto está dividido em duas pastas principais:
@@ -22,12 +41,6 @@ O projeto está dividido em duas pastas principais:
 -   Autenticação baseada em JWT.
 -   Rotas protegidas com `AuthGuard`, exceto a rota de login e a de cadastro de usuários no sistema.
 -   A Criação de clientes é protegida por roles: apenas usuários com `SELLER` ou `ADMINISTRATOR` podem acessar.
--   Arquitetura de autenticação construída com:
-    -   `AuthModule`
-    -   `AuthController`
-    -   `AuthService`
-    -   `RoleService`
--   Constante `JwtSecret` configurada em `src/auth`.
 
 ---
 
@@ -43,6 +56,10 @@ enum Role {
 }
 ```
 
+Diagrama de classes:
+
+![Diagrama UML](./frontend/public/uml-diagram.png "Diagrama UML")
+
 ---
 
 ## 👤 Usuários de Teste (Seed Inicial)
@@ -54,6 +71,20 @@ O banco de dados já vem com três usuários pré-cadastrados, um para cada role
 | Admin     | admin@crmtracker.com     | 123456 | ADMINISTRATOR |
 | Atendente | atentende@crmtracker.com | 123456 | ATTENDANT     |
 | Vendedor  | vendedor@crmtracker.com  | 123456 | SELLER        |
+
+---
+
+## 📦 Frontend – Estrutura de Pastas
+
+Dentro de `frontend/src`, a estrutura segue este padrão:
+
+-   `/components` - Diretório dos componentes da aplicação
+-   `/elements` - Diretório dos elementos da aplicação
+-   `/helpers` – Classes estáticas que auxiliam tarefas no frontend, como requisições e armazenagem de informações no browser.
+-   `/model` – Diretório das representações das entidades no front.
+    -   `/dto` – Objetos de transferência de dados (Data Transfer Objects).
+-   `/pages` - Rotas da aplicação.
+-   `/services` - Classes que aplicam regras de negócio atreladas as entidades
 
 ---
 
@@ -78,6 +109,7 @@ Dentro de `backend/src/`, a estrutura segue este padrão:
 -   **Registro de atendimentos** – permitido para todos os usuários
 -   **Histórico de atendimentos vinculado ao cliente**
 -   **Formulário de cadastro de usuários acessível pela tela de login**
+-   **Campo de pesquisa de clientes pelo nome ou e-mail**
 
 ---
 
@@ -101,16 +133,16 @@ cd teste-tracker
 
 ```bash
 # a partir da raiz do repositório
-cd backend
-npm install
+cd backend # para entrar na pasta do backend
+npm install # para instalar as dependências do backend
 ```
 
 **Frontend**:
 
 ```bash
 # a partir da raiz do repositório
-cd frontend
-npm install
+cd frontend # para entrar na pasta do frontend
+npm install # para instalar as dependências do frontend
 ```
 
 ### 3. Configurar variáveis de ambiente
@@ -143,20 +175,51 @@ cd frontend
 npm run dev
 ```
 
----
+### 6. Acessar a aplicação
 
-## 📚 Tecnologias Utilizadas
+Em seu navegador, coloque a url http://localhost:4000 para acessar a aplicação:
 
-### Backend
+![Página de login da aplicação](./frontend/public/login-page.png "Página de login")
 
--   [NestJS](https://nestjs.com/)
--   [Prisma ORM](https://www.prisma.io/)
--   [JWT](https://jwt.io/)
+### 7. Rotas da aplicação
 
-### Frontend
+#### Rota de autenticação - `/login`
 
--   [Next.js](https://nextjs.org/)
--   [React](https://reactjs.org/)
+![Página de login da aplicação](./frontend/public/login-page.png "Página de login")
+
+#### Rota da página inicial - `/home` - Botões visíveis para os acessos de Administrador e Vendedor
+
+![Página inicial da aplicação](./frontend/public/home-page.png "Página inicial")
+
+Botão de `cadastrar cliente` oculto para o acesso de Atendente:
+
+![Página inicial da aplicação](./frontend/public/home-page-2.png "Página inicial")
+
+#### Rota de cadastro de clientes - `/customers/new` - Restritos aos acessos de Administrador e Vendedor
+
+![Página de criação de cliente](./frontend/public/create-customer-page.png "Página de cadastro de clientes")
+
+Quando logado como atendente, e se o usuário colocar na barra de endereços a rota `/customers/new`, a rota informará que o usuário não possui acesso à esta funcionalidade:
+
+![Página de criação de cliente](./frontend/public/create-customer-page-2.png "Página de cadastro de clientes")
+
+#### Rota de cadastro de atendimento - `/attendances/new`
+
+![Página de cadastro de atendimento](./frontend/public/create-attendance-page.png "Página de cadastro de atendimento")
+
+Componente de pesquisa de cliente:
+
+![Componente de pesquisa de clientes](./frontend/public/customer-search-input.png "Componente de pesquisa de clientes")
+
+![Componente de pesquisa de clientes](./frontend/public/customer-search-input-2.png "Componente de pesquisa de clientes")
+
+![Componente de pesquisa de clientes](./frontend/public/customer-search-input-3.png "Componente de pesquisa de clientes")
+
+Ao clicar em um cliente, suas informações são preenchidas no formulário de atendimento:
+![Formulário de cadastro de atendimento](./frontend/public/create-attendance-page-2.png "Formulário de cadastro de atendimento")
+
+#### Rota de pesquisa de atendimentos - `/attendances/history/{id-cliente}`
+![Histórico de atendimentos](./frontend/public/attendance-history-page.png "Histórico de atendimentos")
 
 ---
 
