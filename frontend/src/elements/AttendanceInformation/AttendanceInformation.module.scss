@@ -46,6 +46,7 @@
         .descriptionBody {
             @include flex-center(column, center, flex-start);
             padding: 10px;
+            text-align: justify;
         }
     }
 }

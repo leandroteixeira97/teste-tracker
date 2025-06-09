@@ -45,7 +45,16 @@ const LoginForm = (): JSX.Element => {
                     onValueChange={(value: string) => setPassword(value)}
                 />
             </div>
-            <Button id="submit" type="submit" text="Login" tooltip="Clique aqui para fazer o login" />
+            <div className={Styles.buttonsContainer}>
+                <Button id="submit" type="submit" text="Login" tooltip="Clique aqui para fazer o login" />
+                <Button
+                    id="submit"
+                    type="button"
+                    text="Cadastrar"
+                    tooltip="Clique aqui para se cadastrar no sistema"
+                    onClick={() => router.push('/users/new')}
+                />
+            </div>
         </form>
     );
 };

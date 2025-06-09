@@ -5,6 +5,7 @@ import { CreateUserDTO } from 'src/model/dto/createUser.dto';
 import { UserDTO } from 'src/model/dto/user.dto';
 import { UserService } from 'src/service/user.service';
 import { Request } from './customer.controller';
+import { Public } from 'src/decorator/public';
 
 @Controller('/users')
 export class UserController {
@@ -35,6 +36,7 @@ export class UserController {
     }
 
     @Post()
+    @Public()
     async createUser(@Body() postData: CreateUserDTO): Promise<UserDTO> {
         const user: User = await this.userService.createUser(postData);
 

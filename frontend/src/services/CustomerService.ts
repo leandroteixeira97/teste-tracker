@@ -1,5 +1,5 @@
 import { RequestHelper } from '@/helpers/RequestHelper';
-import { CreateCustomerDTO } from '@/model/dto/CreateUserDTO';
+import { CreateCustomerDTO } from '@/model/dto/CreateCustomerDTO';
 import { CustomerDTO } from '@/model/dto/CustomerDTO';
 
 export class CustomerService {

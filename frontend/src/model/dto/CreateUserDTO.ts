@@ -1,5 +1,8 @@
-export interface CreateCustomerDTO {
+import { Role } from '../Role';
+
+export interface CreateUserDTO {
     name: string;
     email: string;
-    phone: string;
+    passwordHash: string;
+    role: Role;
 }

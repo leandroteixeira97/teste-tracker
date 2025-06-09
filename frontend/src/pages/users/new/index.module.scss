@@ -1,0 +1,37 @@
+@mixin flex-center($direction: row, $justify: center, $align: center, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+.createUserPage {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    @include flex-center(column, center, center);
+
+    background-color: #1f1f1f;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('/home-background.jpg');
+    background-size: cover;
+
+    color: #f2f2f2;
+
+    h2 {
+        font-weight: lighter;
+    }
+
+    .createUserContainer {
+        @include flex-center(column, center, center);
+        gap: 30px;
+
+        backdrop-filter: blur(5px);
+        background-color: rgba(0, 0, 0, 0.5);
+
+        border-radius: 10px;
+        padding: 30px;
+    }
+}
