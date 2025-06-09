@@ -19,11 +19,12 @@ const RoleProtection = (props: RoleProtectionProps) => {
         return <>{props.children}</>;
     }
 
-    return <></>;
+    return <>{props.customMessage}</>;
 };
 
 interface RoleProtectionProps extends React.PropsWithChildren{
     allowableRoles: Role[];
+    customMessage?: string;
 }
 
 export default RoleProtection;

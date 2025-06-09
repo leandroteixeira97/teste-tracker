@@ -6,8 +6,15 @@ import { CustomerService } from '@/services/CustomerService';
 import { UserService } from '@/services/UserService';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Styles from './index.module.scss';
+import { useRouter } from 'next/router';
+import Button from '@/elements/Button/Buttons';
+import CustomerSearchInput from '@/elements/CustomerSearchInput/CustomerSearchInput';
+import TrackerLogo from '@/elements/TrackerLogo/TrackerLogo';
 
 const AttendanceHistory = () => {
+    const router = useRouter();
+
     const searchParams = useSearchParams();
     const customerId = searchParams.get('id');
 
@@ -46,9 +53,37 @@ const AttendanceHistory = () => {
 
     if (customer && users) {
         return (
-            <div>
-                <CustomerInformation customer={customer} />
-                <AttendancesList users={users} attendances={customer.attendances} />
+            <div className={Styles.attendancesHistoryPage}>
+                <div className={Styles.attendancesHistoryContainer}>
+                    <TrackerLogo />
+
+                    <CustomerSearchInput
+                        id="customer_search_input"
+                        label="Pesquisar outro cliente"
+                        placeholder="Digite o nome ou e-mail do cliente"
+                        onSelectedValueChange={(customer?: CustomerDTO) => {
+                            if (customer) {
+                                router.push('/attendances/history?id=' + customer.id);
+                            }
+                        }}
+                    />
+
+                    <CustomerInformation customer={customer} />
+
+                    <hr />
+
+                    <AttendancesList users={users} attendances={customer.attendances} />
+
+                    <div className={Styles.buttonsContainer}>
+                        <Button
+                            id="go_back"
+                            type="button"
+                            text="Voltar"
+                            tooltip="Clique aqui para voltar a tela principal"
+                            onClick={() => router.push('/home')}
+                        />
+                    </div>
+                </div>
             </div>
         );
     } else {

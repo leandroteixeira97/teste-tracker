@@ -38,6 +38,7 @@ const CustomerSearchInput = (props: CustomerSearchInputProps) => {
                     props.onSelectedValueChange(customer);
                     setIsOptionsListOpen(false);
                 }}
+                className={Styles.customerOption}
             >
                 {name}
             </li>
@@ -60,9 +61,11 @@ const CustomerSearchInput = (props: CustomerSearchInputProps) => {
         let filteredCustomers: CustomerDTO[] = [];
 
         if (typedValue && customers?.length) {
-            filteredCustomers = customers?.filter(
-                (customer: CustomerDTO) => customer.email?.includes(typedValue) || customer.name.includes(typedValue),
-            );
+            filteredCustomers = customers?.filter((customer: CustomerDTO) => {
+                const lowerCasedTypedValue = typedValue.toLowerCase();
+
+                return customer.email?.toLowerCase()?.includes(lowerCasedTypedValue) || customer.name?.toLowerCase().includes(lowerCasedTypedValue);
+            });
 
             if (filteredCustomers.length) {
                 const options: JSX.Element[] = filteredCustomers.map((customer: CustomerDTO) => createOption(customer));

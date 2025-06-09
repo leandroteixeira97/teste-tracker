@@ -1,0 +1,12 @@
+@mixin flex-center($direction: row, $justify: center, $align: center, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+.attendanceListContainer {
+    @include flex-center(column, center, flex-start);
+    gap: 30px;
+}

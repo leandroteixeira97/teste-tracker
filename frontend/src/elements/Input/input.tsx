@@ -1,11 +1,12 @@
 import { ChangeEvent, HTMLInputTypeAttribute, JSX } from 'react';
+import Styles from './input.module.scss';
 
 const Input = (props: InputProps): JSX.Element => {
     const labelElement = buildLabelElement(props);
     const inputElement = buildInputElement(props);
 
     return (
-        <div id={`${props.id}_input_container`}>
+        <div id={`${props.id}_input_container`} className={Styles.inputContainer}>
             {labelElement}
             {inputElement}
         </div>
@@ -39,7 +40,7 @@ const buildInputElement = (props: InputProps): JSX.Element => {
 
 const buildLabelElement = (props: InputProps): JSX.Element => {
     return (
-        <label htmlFor={props.id} id={`${props.id}_input_label`}>
+        <label htmlFor={props.id} id={`${props.id}_input_label`} className={Styles.labelInput}>
             {props.label}
         </label>
     );

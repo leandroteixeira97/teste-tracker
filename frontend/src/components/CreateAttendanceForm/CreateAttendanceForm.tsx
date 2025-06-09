@@ -5,6 +5,7 @@ import { CustomerDTO } from '@/model/dto/CustomerDTO';
 import { AttendanceService } from '@/services/AttendanceService';
 import { useRouter } from 'next/router';
 import { FormEvent, JSX, useState } from 'react';
+import Styles from './CreateAttendanceForm.module.scss';
 
 const CreateAttendanceForm = (): JSX.Element => {
     const [description, setDescription] = useState<string>();
@@ -37,7 +38,7 @@ const CreateAttendanceForm = (): JSX.Element => {
     };
 
     return (
-        <form id="create_customer_form_container" onSubmit={createAttendance}>
+        <form id="create_attendance_form_container" onSubmit={createAttendance} className={Styles.createAttendanceForm}>
             <CustomerSearchInput
                 id="customer_search_input"
                 label="Pesquisar cliente"
@@ -69,14 +70,17 @@ const CreateAttendanceForm = (): JSX.Element => {
                 placeholder="Descreva aqui o atendimento"
                 onValueChange={(value: string) => setDescription(value)}
             />
-            <Button id="submit" type="submit" text="Registrar" tooltip="Clique aqui para registrar o atendimento" />
-            <Button
-                id="go_back"
-                type="button"
-                text="voltar"
-                tooltip="Clique aqui para voltar a tela principal"
-                onClick={() => router.push('/home')}
-            />
+
+            <div className={Styles.buttonsContainer}>
+                <Button id="submit" type="submit" text="Registrar" tooltip="Clique aqui para registrar o atendimento" />
+                <Button
+                    id="go_back"
+                    type="button"
+                    text="Voltar"
+                    tooltip="Clique aqui para voltar a tela principal"
+                    onClick={() => router.push('/home')}
+                />
+            </div>
         </form>
     );
 };

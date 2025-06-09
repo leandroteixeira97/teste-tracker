@@ -6,20 +6,13 @@
     flex-wrap: $wrap;
 }
 
-.login {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    width: 100vw;
-    height: 100vh;
+.createAttendanceForm {
     @include flex-center(column, center, center);
-}
 
-.backgroundVideo {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    object-fit: cover;
-    filter: brightness(40%);
+    gap: 30px;
+
+    .buttonsContainer {
+        @include flex-center(row, center, center);
+        gap: 10px;
+    }
 }

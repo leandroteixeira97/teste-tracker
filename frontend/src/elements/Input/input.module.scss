@@ -1,0 +1,30 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    input,
+    textarea {
+        width: 100%;
+        border: none;
+        height: 30px;
+        background-color: transparent;
+        border-bottom: 1px solid #ccc;
+        color: #f2f2f2;
+        outline: none;
+    }
+
+    textarea {
+        height: 150px;
+    }
+
+    min-width: 300px;
+}
+
+.labelInput {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
