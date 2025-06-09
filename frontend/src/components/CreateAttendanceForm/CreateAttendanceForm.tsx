@@ -6,6 +6,7 @@ import { AttendanceService } from '@/services/AttendanceService';
 import { useRouter } from 'next/router';
 import { FormEvent, JSX, useState } from 'react';
 import Styles from './CreateAttendanceForm.module.scss';
+import Swal from 'sweetalert2';
 
 const CreateAttendanceForm = (): JSX.Element => {
     const [description, setDescription] = useState<string>();
@@ -18,12 +19,23 @@ const CreateAttendanceForm = (): JSX.Element => {
         e.preventDefault();
 
         if (description && customerId) {
-            try {
-                await AttendanceService.createAttendance(customerId, description);
-                router.push('/home');
-            } catch {
-                window.alert('Não foi possível cadastrar o atendimento!');
-            }
+            AttendanceService.createAttendance(customerId, description)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'O atendimento foi registrado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    }).then(() => router.push('/home'));
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Não foi possível registrar o atendimento!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                });
         }
     };
 

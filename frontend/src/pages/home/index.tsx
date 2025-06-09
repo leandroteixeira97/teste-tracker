@@ -7,6 +7,7 @@ import { AuthenticationService } from '@/services/AuthenticationService';
 import CustomerSearchInput from '@/elements/CustomerSearchInput/CustomerSearchInput';
 import { CustomerDTO } from '@/model/dto/CustomerDTO';
 import TrackerLogo from '@/elements/TrackerLogo/TrackerLogo';
+import Swal from 'sweetalert2';
 
 const Home = () => {
     const router = useRouter();
@@ -41,8 +42,21 @@ const Home = () => {
                         type={'button'}
                         text={'Encerrar sessão'}
                         onClick={() => {
-                            AuthenticationService.performLogout();
-                            router.push('/login');
+                            Swal.fire({
+                                title: 'Tem certeza?',
+                                text: 'Você será redirecionado para a tela de login',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Sim, desejo encerrar a sessão',
+                                cancelButtonText: 'Cancelar'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    AuthenticationService.performLogout();
+                                    router.push('/login');
+                                }
+                            });
                         }}
                     />
                 </div>

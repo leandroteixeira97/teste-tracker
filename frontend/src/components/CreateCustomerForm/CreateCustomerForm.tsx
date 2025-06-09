@@ -6,6 +6,7 @@ import { FormEvent, JSX, useState } from 'react';
 import Styles from './CreateCustomerForm.module.scss';
 import RoleProtection from '../RoleProtection/RoleProtection';
 import { Role } from '@/model/Role';
+import Swal from 'sweetalert2';
 
 const CreateCustomerForm = (): JSX.Element => {
     const allowableRoles: Role[] = [Role.ADMINISTRATOR, Role.SELLER];
@@ -20,18 +21,29 @@ const CreateCustomerForm = (): JSX.Element => {
         e.preventDefault();
 
         if (name && email && phone) {
-            try {
-                await CustomerService.createCustomer(name, email, phone);
-                router.push('/home');
-            } catch {
-                window.alert('Não foi possível cadastrar o cliente!');
-            }
+            CustomerService.createCustomer(name, email, phone)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'O cliente foi cadastrado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    }).then(() => router.push('/home'));
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Não foi possível cadastrar o cliente!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                });
         }
     };
 
     return (
         <form id="create_customer_form_container" onSubmit={createCustomer} className={Styles.createCustomerForm}>
-            <RoleProtection allowableRoles={allowableRoles} customMessage='Você não possui permissão para cadastrar clientes'>
+            <RoleProtection allowableRoles={allowableRoles} customMessage="Você não possui permissão para cadastrar clientes">
                 <Input
                     id="name"
                     type="text"
